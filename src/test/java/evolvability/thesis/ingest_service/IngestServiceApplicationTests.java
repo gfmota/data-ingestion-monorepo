@@ -1,10 +1,10 @@
-package evolvability.thesis.injest_service;
+package evolvability.thesis.ingest_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class InjestServiceApplicationTests {
+class IngestServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
