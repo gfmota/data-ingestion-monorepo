@@ -2,28 +2,32 @@ package evolvability.thesis.ingest_service.consumers;
 
 import evolvability.thesis.ingest_service.entities.IngestedData;
 import evolvability.thesis.ingest_service.entities.RawData;
+import evolvability.thesis.ingest_service.producers.DataTransformationProducer;
 import evolvability.thesis.ingest_service.repositories.RawDataRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.core.Message;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class DataIngestionConsumer {
     private static final String DATA_INGESTION_QUEUE = "data-ingestion-queue";
 
     private final RawDataRepository rawDataRepository;
 
-    @RabbitListener(queues = DATA_INGESTION_QUEUE)
-    public void ingestData(final IngestedData data) {
-        System.out.println("Received data: " + data);
-        final RawData rawData = mapRawDataFromIngestedData(data);
-        System.out.println("Mapped data: " + rawData);
+    private final DataTransformationProducer dataTransformationProducer;
 
-        rawDataRepository.insert(rawData);
+    @RabbitListener(queues = DATA_INGESTION_QUEUE)
+    private void ingestData(final IngestedData data) {
+        log.info("Ingesting data: {}", data);
+        final RawData rawData = mapRawDataFromIngestedData(data);
+        log.info("Mapped data: {}", rawData);
+
+        final RawData rawDataResult = rawDataRepository.insert(rawData);
+        log.info("Raw data result: {}", rawDataResult);
+        dataTransformationProducer.publish(rawDataResult, data.metadata());
     }
 
     private RawData mapRawDataFromIngestedData(final IngestedData ingestedData) {
