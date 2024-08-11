@@ -26,7 +26,7 @@ public class MetadataService {
                 .build();
         final var savedObject = metadataRepository.save(metadataObject);
 
-        metadataUpdateProducer.publish(collectorId, metadata);
+        metadataUpdateProducer.publish(collectorId);
         return savedObject.getId();
     }
 

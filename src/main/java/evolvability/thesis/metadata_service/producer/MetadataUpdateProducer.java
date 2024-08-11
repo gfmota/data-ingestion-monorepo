@@ -16,10 +16,10 @@ public class MetadataUpdateProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public void publish(final String collectorId, final Map<String, Object> metadata) {
-        log.info("Publishing metadata update for collectorId {}: {}", collectorId, metadata);
+    public void publish(final String collectorId) {
+        log.info("Publishing metadata update for collectorId {}", collectorId);
 
-        final var message = new MetadataUpdateMessage(collectorId, metadata);
+        final var message = new MetadataUpdateMessage(collectorId);
         log.info("Publishing message: {}", message);
         rabbitTemplate.convertAndSend(METADATA_UPDATE_QUEUE, message);
     }
