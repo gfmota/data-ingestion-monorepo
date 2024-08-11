@@ -19,7 +19,7 @@ public class MetadataController {
     private ResponseEntity<Map<String, Object>> getMetadata(
             @RequestParam("collectorId") final String collectorId) {
         log.info("Getting metadata for collectorId: {}", collectorId);
-        return ResponseEntity.ok(Map.of());
+        return ResponseEntity.ok(metadataService.getMetadata(collectorId));
     }
 
     @PostMapping("/{collectorId}")

@@ -4,6 +4,7 @@ import evolvability.thesis.metadata_service.entities.Metadata;
 import evolvability.thesis.metadata_service.producer.MetadataUpdateProducer;
 import evolvability.thesis.metadata_service.repositories.MetadataRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class MetadataService {
     private final MetadataRepository metadataRepository;
 
@@ -26,5 +28,14 @@ public class MetadataService {
 
         metadataUpdateProducer.publish(collectorId, metadata);
         return savedObject.getId();
+    }
+
+    public Map<String, Object> getMetadata(final String collectorId) {
+        return metadataRepository.findFirstByCollectorIdOrderByReceivedAtDesc(collectorId)
+                .map(metadata -> {
+                    log.info("Most recent metadata found: {}", metadata);
+                    return metadata.getMetadata();
+                })
+                .orElse(Map.of());
     }
 }
