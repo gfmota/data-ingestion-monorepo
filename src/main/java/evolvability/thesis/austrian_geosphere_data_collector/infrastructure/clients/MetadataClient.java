@@ -1,4 +1,4 @@
-package evolvability.thesis.data_collector_template.infrastructure.clients;
+package evolvability.thesis.austrian_geosphere_data_collector.infrastructure.clients;
 
 
 import org.springframework.cloud.openfeign.FeignClient;
@@ -11,5 +11,5 @@ import java.util.Map;
 @FeignClient(name = "metadata-service", url = "${metadata-service.url}")
 public interface MetadataClient {
     @PostMapping("/metadata/{collectorId}")
-    Map<String, Object> configMetadata(@PathVariable String collectorId, @RequestBody Map<String, Object> metadata);
+    void configMetadata(@PathVariable String collectorId, @RequestBody Map<String, Object> metadata);
 }

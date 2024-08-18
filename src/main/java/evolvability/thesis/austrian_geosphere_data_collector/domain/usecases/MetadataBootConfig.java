@@ -1,6 +1,6 @@
-package evolvability.thesis.data_collector_template.domain.usecases;
+package evolvability.thesis.austrian_geosphere_data_collector.domain.usecases;
 
-import evolvability.thesis.data_collector_template.infrastructure.clients.MetadataClient;
+import evolvability.thesis.austrian_geosphere_data_collector.infrastructure.clients.MetadataClient;
 import lombok.extern.slf4j.Slf4j;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

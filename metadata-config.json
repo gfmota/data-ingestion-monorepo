@@ -1,0 +1,9 @@
+{
+  "timestamp-property": "timestamps.0",
+  "results-array": "features",
+  "unit-property": "properties.parameters.P.unit",
+  "value-property": "properties.parameters.P.data",
+  "location-property": "geometry.coordinates",
+  "location-format": "[longitude,latitude]",
+  "station-id-property": "properties.station"
+}

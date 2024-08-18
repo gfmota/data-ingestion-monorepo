@@ -1,7 +1,7 @@
-package evolvability.thesis.data_collector_template.infrastructure.publishers;
+package evolvability.thesis.austrian_geosphere_data_collector.infrastructure.publishers;
 
-import evolvability.thesis.data_collector_template.domain.entity.EnrichedData;
-import evolvability.thesis.data_collector_template.domain.gateways.PublisherGateway;
+import evolvability.thesis.austrian_geosphere_data_collector.domain.entity.EnrichedData;
+import evolvability.thesis.austrian_geosphere_data_collector.domain.gateways.PublisherGateway;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
