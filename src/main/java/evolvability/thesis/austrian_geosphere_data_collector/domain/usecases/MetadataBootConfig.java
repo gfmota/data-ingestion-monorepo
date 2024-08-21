@@ -29,8 +29,14 @@ public class MetadataBootConfig implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         log.info("Searching for metadata config on {}", metadataConfigPath);
-        ClassPathResource resource = new ClassPathResource(metadataConfigPath);
-        final Map<String, Object> metadata = objectMapper.readValue(resource.getFile(), Map.class);
+        Map<String, Object> metadata;
+        try {
+            ClassPathResource resource = new ClassPathResource(metadataConfigPath);
+            metadata = objectMapper.readValue(resource.getFile(), Map.class);
+        } catch (Exception e) {
+            log.error("Error while reading metadata config", e);
+            return;
+        }
 
         if (metadata.isEmpty()) {
             log.info("No metadata found");
