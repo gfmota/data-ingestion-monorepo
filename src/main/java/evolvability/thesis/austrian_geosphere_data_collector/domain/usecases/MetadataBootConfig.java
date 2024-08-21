@@ -37,6 +37,10 @@ public class MetadataBootConfig implements CommandLineRunner {
             return;
         }
         log.info("Metadata found, sending it to config service: {}", metadata);
-        metadataClient.configMetadata(collectorId, metadata);
+        try {
+            metadataClient.configMetadata(collectorId, metadata);
+        } catch (Exception e) {
+            log.error("Error while sending metadata to config service", e);
+        }
     }
 }
