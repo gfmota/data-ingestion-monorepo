@@ -1,5 +1,6 @@
 package evolvability.thesis.austrian_geosphere_data_collector.infrastructure.publishers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import evolvability.thesis.austrian_geosphere_data_collector.domain.entity.EnrichedData;
 import evolvability.thesis.austrian_geosphere_data_collector.domain.gateways.PublisherGateway;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +18,18 @@ public class RabbitMessagePublisher implements PublisherGateway {
 
     private final RabbitTemplate rabbitTemplate;
 
+    private final ObjectMapper objectMapper;
+
     @Override
     public void publishData(EnrichedData data) {
         log.info("Publishing data {} to rabbit mq queue {}", data, rabbitMqQueueRoutingKey);
-        rabbitTemplate.convertAndSend(rabbitMqQueueRoutingKey, data);
+        String jsonString;
+        try {
+            jsonString = objectMapper.writeValueAsString(data);
+        } catch (Exception e) {
+            log.error("Failed to convert data to json", e);
+            return;
+        }
+        rabbitTemplate.convertAndSend(rabbitMqQueueRoutingKey, jsonString);
     }
 }
