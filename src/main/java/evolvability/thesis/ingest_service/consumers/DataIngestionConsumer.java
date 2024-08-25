@@ -1,5 +1,6 @@
 package evolvability.thesis.ingest_service.consumers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import evolvability.thesis.ingest_service.entities.IngestedData;
 import evolvability.thesis.ingest_service.entities.RawData;
 import evolvability.thesis.ingest_service.producers.DataTransformationProducer;
@@ -19,8 +20,18 @@ public class DataIngestionConsumer {
 
     private final DataTransformationProducer dataTransformationProducer;
 
+    private final ObjectMapper objectMapper;
+
     @RabbitListener(queues = DATA_INGESTION_QUEUE)
-    private void ingestData(final IngestedData data) {
+    private void ingestData(final String message) {
+        IngestedData data;
+        log.info("Received message: {}", message);
+        try {
+            data = objectMapper.readValue(message, IngestedData.class);
+        } catch (Exception e) {
+            log.error("Failed to convert message into IngestedData", e);
+            return;
+        }
         log.info("Ingesting data: {}", data);
         final RawData rawData = mapRawDataFromIngestedData(data);
         log.info("Mapped data: {}", rawData);
