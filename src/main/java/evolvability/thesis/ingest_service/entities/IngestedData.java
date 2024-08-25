@@ -1,11 +1,9 @@
 package evolvability.thesis.ingest_service.entities;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 public record IngestedData(
-        String collectorId,
-        LocalDateTime collectedAt,
+        Header header,
         Object data,
         Map<String, Object> metadata
 ) {}

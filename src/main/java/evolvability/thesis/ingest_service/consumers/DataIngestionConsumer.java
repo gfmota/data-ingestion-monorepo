@@ -32,8 +32,8 @@ public class DataIngestionConsumer {
 
     private RawData mapRawDataFromIngestedData(final IngestedData ingestedData) {
         return RawData.builder()
-                .collectedAt(ingestedData.collectedAt())
-                .collectorId(ingestedData.collectorId())
+                .collectedAt(ingestedData.header().collectedAt())
+                .collectorId(ingestedData.header().source())
                 .data(ingestedData.data())
                 .processed(false)
                 .build();
