@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @EnableRabbit
-public class OrchestratorApplication {
+public class OrchestratorWorkerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OrchestratorApplication.class, args);
+		SpringApplication.run(OrchestratorWorkerApplication.class, args);
 	}
 
 }

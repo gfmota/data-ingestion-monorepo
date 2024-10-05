@@ -1,4 +1,4 @@
-package evolvability.thesis.orchestrator.infrastructure.consumers;
+package evolvability.thesis.orchestrator.consumers;
 
 import java.util.Map;
 
