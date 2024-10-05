@@ -1,9 +1,35 @@
 {
+  "data-id": "austrian-geosphere-data",
+  "origin": "austrian-geosphere-data-collector",
+  "period": 600,
   "timestamp-property": "timestamps.0",
-  "results-array": "features",
-  "unit-property": "properties.parameters.P.unit",
-  "value-property": "properties.parameters.P.data",
-  "location-property": "geometry.coordinates",
-  "location-format": "[longitude,latitude]",
-  "station-id-property": "properties.station"
+  "results": {
+    "type": "array",
+    "results-property": "features",
+    "station-id-property": "properties.station"
+  },
+  "location": {
+    "property": "geometry.coordinates",
+    "format": "[longitude,latitude]"
+  },
+  "datatypes": [
+    {
+      "datatype-name": "air_pressure",
+      "unit-property": "properties.parameters.P.unit",
+      "value-property": "properties.parameters.P.data",
+      "rtype": "mean"
+    },
+    {
+      "datatype-name": "wind_speed",
+      "unit-property": "properties.parameters.FF.unit",
+      "value-property": "properties.parameters.FF.data",
+      "rtype": "mean"
+    },
+    {
+      "datatype-name": "wind_direction",
+      "unit-property": "properties.parameters.DD.unit",
+      "value-property": "properties.parameters.DD.data",
+      "rtype": "mean"
+    }
+  ]
 }
