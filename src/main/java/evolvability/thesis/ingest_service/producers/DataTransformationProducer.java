@@ -32,7 +32,7 @@ public class DataTransformationProducer {
         }
         final Map<String, Object> metadata = mergeMetadata(messageMetadata, collectorMetadata);
 
-        final DataTransformationMessage message = new DataTransformationMessage(rawData.getId(), metadata);
+        final DataTransformationMessage message = new DataTransformationMessage(rawData.getData(), metadata);
 
         log.info("Publishing message: {}", message);
         rabbitTemplate.convertAndSend(DATA_PUBLICATION_QUEUE, message);
