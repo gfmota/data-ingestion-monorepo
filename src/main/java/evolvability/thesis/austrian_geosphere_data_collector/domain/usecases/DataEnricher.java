@@ -11,14 +11,14 @@ import java.util.Map;
 @Component
 public class DataEnricher {
 
-    @Value("${data.type}")
-    private String dataType;
+    @Value("${data.id}")
+    private String dataId;
 
     @Value("${collector.id}")
     private String collectorId;
 
     public EnrichedData enrichData(Object data) {
-        final var header = new Header(LocalDateTime.now(), collectorId, dataType);
+        final var header = new Header(LocalDateTime.now(), collectorId, dataId);
         return new EnrichedData(header, Map.of(), data);
     }
 }
