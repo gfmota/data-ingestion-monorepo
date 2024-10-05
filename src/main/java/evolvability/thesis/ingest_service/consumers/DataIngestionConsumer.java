@@ -45,6 +45,7 @@ public class DataIngestionConsumer {
         return RawData.builder()
                 .collectedAt(ingestedData.header().collectedAt())
                 .collectorId(ingestedData.header().source())
+                .dataId(ingestedData.header().dataId())
                 .data(ingestedData.data())
                 .processed(false)
                 .build();

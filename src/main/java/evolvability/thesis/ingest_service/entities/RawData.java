@@ -25,6 +25,9 @@ public class RawData {
     @Indexed
     private LocalDateTime collectedAt;
 
+    @Indexed
+    private String dataId;
+
     private Boolean processed;
 
     private Object data;
