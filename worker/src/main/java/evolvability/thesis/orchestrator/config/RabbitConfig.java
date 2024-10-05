@@ -1,4 +1,4 @@
-package evolvability.thesis.orchestrator;
+package evolvability.thesis.orchestrator.config;
 
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

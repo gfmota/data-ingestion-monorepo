@@ -1,5 +1,5 @@
-package evolvability.thesis.orchestrator.consumers;
+package evolvability.thesis.orchestrator.dtos;
 
 import java.util.Map;
 
-public record DataTransformationMessage(String rawDataId, Map<String, Object> metadata) {}
+public record DataTransformationMessage(Object rawData, Map<String, Object> metadata) {}
