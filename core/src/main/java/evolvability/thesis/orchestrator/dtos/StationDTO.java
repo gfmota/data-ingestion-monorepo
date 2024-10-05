@@ -1,8 +1,21 @@
 package evolvability.thesis.orchestrator.dtos;
 
-public class DataTypeDTO {
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Map;
+
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class StationDTO {
+    private String id;
     private String name;
-    private String rtype;
-    private String unit;
-    private String description;
+    private String origin;
+    private Double latitude;
+    private Double longitude;
+    private Map<String, Object> metadata;
 }
