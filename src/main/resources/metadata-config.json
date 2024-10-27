@@ -1,34 +1,49 @@
 {
-  "data-id": "austrian-geosphere-data",
+  "dataId": "austrian-geosphere-data",
   "origin": "austrian-geosphere-data-collector",
   "period": 600,
-  "timestamp-property": "timestamps.0",
+  "timestampProperty": "timestamps.0",
   "results": {
     "type": "array",
-    "results-property": "features",
-    "station-id-property": "properties.station"
+    "property": "features",
+    "idProperty": "properties.station"
   },
-  "location": {
-    "property": "geometry.coordinates",
-    "format": "[longitude,latitude]"
+  "stations": {
+    "type": "array",
+    "property": "features",
+    "identification": {
+      "property": "properties.station"
+    },
+    "location": {
+      "property": "geometry.coordinates",
+      "type": "array",
+      "longitude": "0",
+      "latitude": "1"
+    }
   },
   "datatypes": [
     {
-      "datatype-name": "air_pressure",
-      "unit-property": "properties.parameters.P.unit",
-      "value-property": "properties.parameters.P.data",
+      "datatypeName": "air_pressure",
+      "method": "extract",
+      "unitProperty": "properties.parameters.P.unit",
+      "valueProperty": "properties.parameters.P.data",
+      "targetUnit": "hPa",
       "rtype": "mean"
     },
     {
-      "datatype-name": "wind_speed",
-      "unit-property": "properties.parameters.FF.unit",
-      "value-property": "properties.parameters.FF.data",
+      "datatypeName": "wind_speed",
+      "method": "extract",
+      "unitProperty": "properties.parameters.FF.unit",
+      "valueProperty": "properties.parameters.FF.data",
+      "targetUnit": "m/s",
       "rtype": "mean"
     },
     {
-      "datatype-name": "wind_direction",
-      "unit-property": "properties.parameters.DD.unit",
-      "value-property": "properties.parameters.DD.data",
+      "datatypeName": "wind_direction",
+      "method": "extract",
+      "unitProperty": "properties.parameters.DD.unit",
+      "valueProperty": "properties.parameters.DD.data",
+      "targetUnit": "°",
       "rtype": "mean"
     }
   ]
