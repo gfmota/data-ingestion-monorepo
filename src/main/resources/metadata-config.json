@@ -35,7 +35,7 @@
       "method": "extract",
       "unitProperty": "properties.parameters.FF.unit",
       "valueProperty": "properties.parameters.FF.data",
-      "targetUnit": "m/s",
+      "targetUnit": "km/h",
       "rtype": "mean"
     },
     {
@@ -44,6 +44,22 @@
       "unitProperty": "properties.parameters.DD.unit",
       "valueProperty": "properties.parameters.DD.data",
       "targetUnit": "°",
+      "rtype": "mean"
+    },
+    {
+      "datatypeName": "wind_direction",
+      "method": "extract",
+      "unitProperty": "properties.parameters.DD.unit",
+      "valueProperty": "properties.parameters.DD.data",
+      "targetUnit": "°",
+      "rtype": "mean"
+    },
+    {
+      "datatypeName": "wind_temperature",
+      "method": "extract",
+      "unitProperty": "properties.parameters.TL.unit",
+      "valueProperty": "properties.parameters.TL.data",
+      "targetUnit": "°F",
       "rtype": "mean"
     }
   ]
