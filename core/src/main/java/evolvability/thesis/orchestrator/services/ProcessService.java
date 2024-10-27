@@ -11,7 +11,10 @@ import evolvability.thesis.orchestrator.dtos.result.DataDTO;
 import evolvability.thesis.orchestrator.dtos.result.DataTypeDTO;
 import evolvability.thesis.orchestrator.dtos.result.StationDTO;
 import evolvability.thesis.orchestrator.exceptions.JsonPropertyNotFound;
+import evolvability.thesis.orchestrator.exceptions.TransformerNotFound;
+import evolvability.thesis.orchestrator.transformers.Transformer;
 import lombok.extern.slf4j.Slf4j;
+import org.reflections.Reflections;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
@@ -19,6 +22,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.ServiceLoader;
+import java.util.Set;
 
 import static org.apache.commons.lang3.StringUtils.isNumeric;
 
@@ -73,9 +78,21 @@ public class ProcessService {
                                 BranchDTO.builder().data(DataDTO.builder().build()).build());
                         continue;
                     }
+
                     final String unit = getJsonProperty(result, datatype.unitProperty()).asText();
                     final String targetUnit = datatype.targetUnit();
-                    final Double value = getValue(rawValue, unit, targetUnit);
+
+                    Double value = null;
+                    try {
+                        value = getValue(rawValue, unit, targetUnit);
+                    } catch (TransformerNotFound transformerNotFound) {
+                        log.error("Error transforming value for datatype: {} station: {}", datatype.datatypeName(),
+                                stationId, transformerNotFound);
+                        resultsBranch.getBranch().put(datatype.datatypeName(),
+                                BranchDTO.builder().data(DataDTO.builder().build()).build());
+                        continue;
+                    }
+
                     final JsonNode timestampJson = getJsonProperty(data, metadata.timestampProperty());
                     final Long timestamp = getUnixTimestamp(timestampJson.asText());
 
@@ -99,12 +116,31 @@ public class ProcessService {
         return zdt.toEpochSecond();
     }
 
-    private Double getValue(final Double value, final String unit, final String targetUnit) {
+    private Double getValue(final Double value, final String unit, final String targetUnit) throws TransformerNotFound {
         log.info("Value: {} Unit: {} TargetUnit: {}", value, unit, targetUnit);
         if (Objects.equals(unit, targetUnit)) {
             return value;
         }
-        return null;
+
+        final Reflections reflections = new Reflections("evolvability.thesis.orchestrator.transformers");
+        Set<Class<? extends Transformer>> transformers = reflections.getSubTypesOf(Transformer.class);
+
+        for (final Class<? extends Transformer> transformer : transformers) {
+            Transformer instance = null;
+            try {
+                instance = transformer.getDeclaredConstructor().newInstance();
+            } catch (Exception e) {
+                log.error("Error creating transformer instance", e);
+                continue;
+            }
+            if (Objects.equals(instance.getInputUnit(), unit)) {
+                try {
+                    return getValue(instance.transform(value), instance.getOutputUnit(), targetUnit);
+                } catch (TransformerNotFound ignored) {
+                }
+            }
+        }
+        throw new TransformerNotFound(unit, targetUnit);
     }
 
     private List<StationDTO> getStations(final JsonNode data, final Metadata metadata) throws JsonPropertyNotFound {

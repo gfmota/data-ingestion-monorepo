@@ -1,5 +1,9 @@
 package evolvability.thesis.orchestrator.transformers;
 
-public interface Transformer<T, U> {
-    T transform(U data);
+public interface Transformer {
+    String getInputUnit();
+
+    String getOutputUnit();
+
+    Double transform(Double data);
 }
