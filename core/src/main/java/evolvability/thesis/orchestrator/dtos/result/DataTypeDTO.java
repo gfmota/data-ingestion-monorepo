@@ -1,4 +1,4 @@
-package evolvability.thesis.orchestrator.dtos;
+package evolvability.thesis.orchestrator.dtos.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

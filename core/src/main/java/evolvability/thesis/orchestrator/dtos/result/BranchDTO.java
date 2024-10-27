@@ -1,17 +1,21 @@
-package evolvability.thesis.orchestrator.dtos;
+package evolvability.thesis.orchestrator.dtos.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Data
 @Builder
 @AllArgsConstructor
-@NoArgsConstructor
-public class MeasurementsDTO {
+public class BranchDTO {
     private String name;
     private Map<String, BranchDTO> branch;
+    private DataDTO data;
+
+    public BranchDTO() {
+        this.branch = new HashMap<>();
+    }
 }

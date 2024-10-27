@@ -1,4 +1,4 @@
-package evolvability.thesis.orchestrator.dtos;
+package evolvability.thesis.orchestrator.dtos.result;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DataDTO {
     private Long timestamp;
-    private Object value;
-    private String period;
+    private Double value;
+    private Integer period;
 }

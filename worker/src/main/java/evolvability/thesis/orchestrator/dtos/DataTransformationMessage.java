@@ -1,5 +1,5 @@
 package evolvability.thesis.orchestrator.dtos;
 
-import java.util.Map;
+import com.fasterxml.jackson.databind.JsonNode;
 
-public record DataTransformationMessage(Object rawData, Map<String, Object> metadata) {}
+public record DataTransformationMessage(JsonNode rawData, Metadata metadata) {}
