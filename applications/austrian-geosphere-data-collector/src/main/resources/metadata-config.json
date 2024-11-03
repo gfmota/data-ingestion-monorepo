@@ -1,0 +1,66 @@
+{
+  "dataId": "austrian-geosphere-data",
+  "origin": "austrian-geosphere-data-collector",
+  "period": 600,
+  "timestampProperty": "timestamps.0",
+  "results": {
+    "type": "array",
+    "property": "features",
+    "idProperty": "properties.station"
+  },
+  "stations": {
+    "type": "array",
+    "property": "features",
+    "identification": {
+      "property": "properties.station"
+    },
+    "location": {
+      "property": "geometry.coordinates",
+      "type": "array",
+      "longitude": "0",
+      "latitude": "1"
+    }
+  },
+  "datatypes": [
+    {
+      "datatypeName": "air_pressure",
+      "method": "extract",
+      "unitProperty": "properties.parameters.P.unit",
+      "valueProperty": "properties.parameters.P.data",
+      "targetUnit": "hPa",
+      "rtype": "mean"
+    },
+    {
+      "datatypeName": "wind_speed",
+      "method": "extract",
+      "unitProperty": "properties.parameters.FF.unit",
+      "valueProperty": "properties.parameters.FF.data",
+      "targetUnit": "km/h",
+      "rtype": "mean"
+    },
+    {
+      "datatypeName": "wind_direction",
+      "method": "extract",
+      "unitProperty": "properties.parameters.DD.unit",
+      "valueProperty": "properties.parameters.DD.data",
+      "targetUnit": "°",
+      "rtype": "mean"
+    },
+    {
+      "datatypeName": "wind_direction",
+      "method": "extract",
+      "unitProperty": "properties.parameters.DD.unit",
+      "valueProperty": "properties.parameters.DD.data",
+      "targetUnit": "°",
+      "rtype": "mean"
+    },
+    {
+      "datatypeName": "wind_temperature",
+      "method": "extract",
+      "unitProperty": "properties.parameters.TL.unit",
+      "valueProperty": "properties.parameters.TL.data",
+      "targetUnit": "°F",
+      "rtype": "mean"
+    }
+  ]
+}
