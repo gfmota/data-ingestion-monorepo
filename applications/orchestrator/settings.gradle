@@ -1,0 +1,3 @@
+rootProject.name = 'orchestrator'
+
+include 'core', 'worker'
