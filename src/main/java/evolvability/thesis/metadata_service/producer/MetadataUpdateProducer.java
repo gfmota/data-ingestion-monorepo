@@ -1,12 +1,10 @@
 package evolvability.thesis.metadata_service.producer;
 
-import evolvability.thesis.metadata_service.entities.MetadataUpdateMessage;
+import evolvability.thesis.metadata_service.entities.MetadataDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -19,7 +17,7 @@ public class MetadataUpdateProducer {
     public void publish(final String collectorId) {
         log.info("Publishing metadata update for collectorId {}", collectorId);
 
-        final var message = new MetadataUpdateMessage(collectorId);
+        final var message = new MetadataDTO(collectorId);
         log.info("Publishing message: {}", message);
         rabbitTemplate.convertAndSend(METADATA_UPDATE_QUEUE, message);
     }

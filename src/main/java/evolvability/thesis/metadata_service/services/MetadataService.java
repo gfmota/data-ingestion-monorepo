@@ -1,6 +1,7 @@
 package evolvability.thesis.metadata_service.services;
 
 import evolvability.thesis.metadata_service.entities.Metadata;
+import evolvability.thesis.metadata_service.entities.MetadataDTO;
 import evolvability.thesis.metadata_service.producer.MetadataUpdateProducer;
 import evolvability.thesis.metadata_service.repositories.MetadataRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +19,12 @@ public class MetadataService {
 
     private final MetadataUpdateProducer metadataUpdateProducer;
 
-    public String createMetadata(final String collectorId, final Map<String, Object> metadata) {
+    public String createMetadata(final MetadataDTO metadata) {
         final var metadataObject = Metadata.builder()
-                .collectorId(collectorId)
-                .metadata(metadata)
+                .collectorId(metadata.collectorId())
+                .metadata(metadata.metadata())
+                .startDate(metadata.startDate())
+                .expirationDate(metadata.expirationDate())
                 .receivedAt(LocalDateTime.now())
                 .build();
         final var savedObject = metadataRepository.save(metadataObject);

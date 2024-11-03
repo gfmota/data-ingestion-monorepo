@@ -26,5 +26,9 @@ public class Metadata {
     @Indexed
     private LocalDateTime receivedAt;
 
+    private LocalDateTime startDate;
+
+    private LocalDateTime expirationDate;
+
     private Map<String, Object> metadata;
 }
