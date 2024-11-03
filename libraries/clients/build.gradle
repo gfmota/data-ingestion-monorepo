@@ -1,0 +1,24 @@
+plugins {
+    id 'java-library'
+}
+
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':libraries:common-dtos')
+
+    api 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.3'
+    implementation 'org.springframework:spring-web'
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+}

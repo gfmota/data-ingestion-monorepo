@@ -1,5 +1,5 @@
 package evolvability.thesis.ingest_service.entities;
 
-import java.util.Map;
+import evolvability.thesis.common.metadata.Metadata;
 
-public record DataTransformationMessage(Object rawData, Map<String, Object> metadata) {}
+public record DataTransformationMessage(Object rawData, Metadata metadata) {}

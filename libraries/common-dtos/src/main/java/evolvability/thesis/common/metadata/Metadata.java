@@ -1,4 +1,4 @@
-package evolvability.thesis.orchestrator.dtos;
+package evolvability.thesis.common.metadata;
 
 import java.util.List;
 

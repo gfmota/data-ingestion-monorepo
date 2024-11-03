@@ -1,6 +1,6 @@
 package evolvability.thesis.metadata_service.producer;
 
-import evolvability.thesis.metadata_service.entities.MetadataDTO;
+import evolvability.thesis.common.metadata.MetadataDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

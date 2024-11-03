@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableRabbit
-@EnableFeignClients
+@EnableFeignClients(basePackages = "evolvability.thesis.clients")
 public class IngestServiceApplication {
 
 	public static void main(String[] args) {

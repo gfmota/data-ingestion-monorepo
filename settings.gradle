@@ -14,3 +14,5 @@ include 'applications:austrian-geosphere-data-collector'
 include 'applications:ingest-service'
 include 'applications:metadata-service'
 include('applications:orchestrator:core','applications:orchestrator:worker')
+include 'libraries:common-dtos'
+include 'libraries:clients'

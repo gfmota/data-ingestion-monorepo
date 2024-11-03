@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
-import evolvability.thesis.orchestrator.dtos.Metadata;
+import evolvability.thesis.common.metadata.Metadata;
 import evolvability.thesis.orchestrator.dtos.ResultDTO;
 import evolvability.thesis.orchestrator.dtos.result.BranchDTO;
 import evolvability.thesis.orchestrator.dtos.result.DataDTO;

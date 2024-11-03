@@ -1,4 +1,4 @@
-package evolvability.thesis.austrian_geosphere_data_collector.domain.entity;
+package evolvability.thesis.common.dataingestionqueue;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -1,7 +1,9 @@
 package evolvability.thesis.metadata_service.services;
 
-import evolvability.thesis.metadata_service.entities.Metadata;
-import evolvability.thesis.metadata_service.entities.MetadataDTO;
+import evolvability.thesis.common.metadata.Metadata;
+import evolvability.thesis.metadata_service.entities.MetadataEntity;
+import evolvability.thesis.common.metadata.MetadataDTO;
+import evolvability.thesis.metadata_service.exceptions.MetadataNotFoundException;
 import evolvability.thesis.metadata_service.producer.MetadataUpdateProducer;
 import evolvability.thesis.metadata_service.repositories.MetadataRepository;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class MetadataService {
     private final MetadataUpdateProducer metadataUpdateProducer;
 
     public String createMetadata(final MetadataDTO metadata) {
-        final var metadataObject = Metadata.builder()
+        final var metadataObject = MetadataEntity.builder()
                 .collectorId(metadata.collectorId())
                 .metadata(metadata.metadata())
                 .startDate(metadata.startDate())
@@ -33,12 +34,12 @@ public class MetadataService {
         return savedObject.getId();
     }
 
-    public Map<String, Object> getMetadata(final String collectorId) {
-        return metadataRepository.findFirstByCollectorIdOrderByReceivedAtDesc(collectorId)
-                .map(metadata -> {
-                    log.info("Most recent metadata found: {}", metadata);
-                    return metadata.getMetadata();
+    public Metadata getMetadata(final String collectorId) throws MetadataNotFoundException {
+        return metadataRepository.findMostRecentValidByCollectorId(collectorId, LocalDateTime.now())
+                .map(metadataEntity -> {
+                    log.info("Most recent metadata found: {}", metadataEntity);
+                    return metadataEntity.getMetadata();
                 })
-                .orElse(Map.of());
+                .orElseThrow(() -> new MetadataNotFoundException("Valid metadata not found"));
     }
 }

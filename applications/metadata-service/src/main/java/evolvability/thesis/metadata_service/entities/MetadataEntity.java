@@ -1,5 +1,6 @@
 package evolvability.thesis.metadata_service.entities;
 
+import evolvability.thesis.common.metadata.Metadata;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,14 +10,13 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
-import java.util.Map;
 
 @Document(collection = "metadata")
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Metadata {
+public class MetadataEntity {
     @Id
     private String id;
 
@@ -30,5 +30,5 @@ public class Metadata {
 
     private LocalDateTime expirationDate;
 
-    private Map<String, Object> metadata;
+    private Metadata metadata;
 }

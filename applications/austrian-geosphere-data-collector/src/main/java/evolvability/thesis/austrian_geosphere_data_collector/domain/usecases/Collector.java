@@ -1,7 +1,5 @@
 package evolvability.thesis.austrian_geosphere_data_collector.domain.usecases;
 
-import evolvability.thesis.austrian_geosphere_data_collector.domain.entity.EnrichedData;
-import evolvability.thesis.austrian_geosphere_data_collector.domain.entity.Header;
 import evolvability.thesis.austrian_geosphere_data_collector.domain.gateways.PublisherGateway;
 import evolvability.thesis.austrian_geosphere_data_collector.infrastructure.clients.GeosphereClient;
 import feign.FeignException;

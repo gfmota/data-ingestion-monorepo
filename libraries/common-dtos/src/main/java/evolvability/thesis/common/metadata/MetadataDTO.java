@@ -1,15 +1,14 @@
-package evolvability.thesis.metadata_service.entities;
+package evolvability.thesis.common.metadata;
 
 import jakarta.validation.constraints.NotNull;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 public record MetadataDTO(
         @NotNull String collectorId,
         LocalDateTime startDate,
         LocalDateTime expirationDate,
-        @NotNull Map<String, Object> metadata
+        @NotNull Metadata metadata
 ) implements Serializable {
 }

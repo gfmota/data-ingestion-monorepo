@@ -1,14 +1,14 @@
 package evolvability.thesis.metadata_service.controllers;
 
-import evolvability.thesis.metadata_service.entities.MetadataDTO;
+import evolvability.thesis.common.metadata.Metadata;
+import evolvability.thesis.common.metadata.MetadataDTO;
+import evolvability.thesis.metadata_service.exceptions.MetadataNotFoundException;
 import evolvability.thesis.metadata_service.services.MetadataService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/metadata")
@@ -18,10 +18,18 @@ public class MetadataController {
     private final MetadataService metadataService;
 
     @GetMapping("/{collectorId}")
-    private ResponseEntity<Map<String, Object>> getMetadata(
+    private ResponseEntity<Metadata> getMetadata(
             @PathVariable("collectorId") final String collectorId) {
         log.info("Getting metadata for collectorId: {}", collectorId);
-        return ResponseEntity.ok(metadataService.getMetadata(collectorId));
+        try {
+            return ResponseEntity.ok(metadataService.getMetadata(collectorId));
+        } catch (MetadataNotFoundException e) {
+            log.error("Metadata for collector id {} not found", collectorId, e);
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            log.error("Error getting metadata for collectorId: {}", collectorId, e);
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
     @PostMapping("")

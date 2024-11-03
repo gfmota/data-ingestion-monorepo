@@ -25,6 +25,8 @@ allprojects {
 	}
 
 	dependencies {
+		implementation project(':libraries:common-dtos')
+
 		implementation 'org.springframework.boot:spring-boot-starter'
 		implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 

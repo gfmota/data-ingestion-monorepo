@@ -1,14 +1,14 @@
 package evolvability.thesis.ingest_service.producers;
 
-import evolvability.thesis.ingest_service.clients.MetadataClient;
+import evolvability.thesis.clients.metadataservice.MetadataServiceClient;
+import evolvability.thesis.common.metadata.Metadata;
 import evolvability.thesis.ingest_service.entities.DataTransformationMessage;
 import evolvability.thesis.ingest_service.entities.RawData;
+import evolvability.thesis.ingest_service.repositories.RawDataRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
-
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -18,34 +18,30 @@ public class DataTransformationProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    private final MetadataClient metadataClient;
+    private final MetadataServiceClient metadataServiceClient;
 
-    public void publish(final RawData rawData, final Map<String, Object> messageMetadata) {
+    private final RawDataRepository rawDataRepository;
+
+    public void publish(final RawData rawData, final Metadata messageMetadata) {
         log.info("Publishing raw data: {}", rawData);
 
-        Map<String, Object> collectorMetadata;
-        try {
-            collectorMetadata = metadataClient.getMetadata(rawData.getCollectorId());
-        } catch (Exception e) {
-            log.error("Error getting metadata for collectorId: {}", rawData.getCollectorId(), e);
-            collectorMetadata = Map.of();
+        Metadata metadata = messageMetadata;
+        if (messageMetadata == null) {
+            try {
+                metadata = metadataServiceClient.getMetadata(rawData.getCollectorId());
+            } catch (Exception e) {
+                log.error("Error getting metadata for collectorId: {}", rawData.getCollectorId(), e);
+                log.info("No metadata for collectorId {}, dropping publication", rawData.getCollectorId(), e);
+                return;
+            }
         }
-        final Map<String, Object> metadata = mergeMetadata(messageMetadata, collectorMetadata);
 
         final DataTransformationMessage message = new DataTransformationMessage(rawData.getData(), metadata);
 
         log.info("Publishing message: {}", message);
         rabbitTemplate.convertAndSend(DATA_PUBLICATION_QUEUE, message);
-    }
 
-    private Map<String, Object> mergeMetadata(final Map<String, Object> messageMetadata,
-                                              final Map<String, Object> collectorMetadata) {
-        log.info("Merging metadata: messageMetadata={}, collectorMetadata={}", messageMetadata, collectorMetadata);
-        collectorMetadata.forEach((key, value) -> {
-            if (!messageMetadata.containsKey(key)) {
-                messageMetadata.put(key, value);
-            }
-        });
-        return messageMetadata;
+        rawData.setProcessed(true);
+        rawDataRepository.save(rawData);
     }
 }
