@@ -1,3 +1,13 @@
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    plugins {
+        id 'org.springframework.boot' version '3.3.5'
+    }
+}
+
 rootProject.name = 'data-ingestion'
 
 include 'applications:austrian-geosphere-data-collector'

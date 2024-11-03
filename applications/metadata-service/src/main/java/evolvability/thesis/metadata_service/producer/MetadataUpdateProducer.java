@@ -14,11 +14,8 @@ public class MetadataUpdateProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public void publish(final String collectorId) {
-        log.info("Publishing metadata update for collectorId {}", collectorId);
-
-        final var message = new MetadataDTO(collectorId);
-        log.info("Publishing message: {}", message);
-        rabbitTemplate.convertAndSend(METADATA_UPDATE_QUEUE, message);
+    public void publish(final MetadataDTO metadataDTO) {
+        log.info("Publishing metadata update {}", metadataDTO);
+        rabbitTemplate.convertAndSend(METADATA_UPDATE_QUEUE, metadataDTO);
     }
 }

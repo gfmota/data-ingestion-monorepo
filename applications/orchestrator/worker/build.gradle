@@ -7,7 +7,7 @@ jar {
 }
 
 dependencies {
-	implementation project(':core')
+	implementation project(':applications:orchestrator:core')
 
 	implementation 'org.springframework.boot:spring-boot-starter-amqp'
 	testImplementation 'org.springframework.amqp:spring-rabbit-test'

@@ -1,6 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '3.3.5'
-	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.springframework.boot'
 	id 'java'
 }
 
@@ -15,13 +14,10 @@ jar {
 allprojects {
 	apply plugin: 'java'
 	apply plugin: 'org.springframework.boot'
-	apply plugin: 'io.spring.dependency-management'
 
 	sourceCompatibility = '17'
 	targetCompatibility = '17'
 
-
-	group = 'evolvability.thesis'
 	version = '0.0.1-SNAPSHOT'
 
 	repositories {

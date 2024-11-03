@@ -1,10 +1,8 @@
 plugins {
 	id 'java'
-	id 'org.springframework.boot' version '3.3.5'
-	id 'io.spring.dependency-management' version '1.1.6'
+	id 'org.springframework.boot'
 }
 
-group = 'evolvability.thesis'
 version = '0.0.1-SNAPSHOT'
 
 java {
