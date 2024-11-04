@@ -11,15 +11,15 @@ mkdir log
 
 ./gradlew :applications:metadata-service:bootRun >> log/metadata-service.log &
 PID1=$!
-
 ./gradlew :applications:ingest-service:bootRun >> log/ingest-service.log &
 PID2=$!
-
 ./gradlew :applications:austrian-geosphere-data-collector:bootRun >> log/austrian-geosphere-data-collector.log &
 PID3=$!
-
 ./gradlew :applications:orchestrator:worker:bootRun >> log/orchestrator.log &
 PID4=$!
+
+echo "Applications running"
+echo "Use Ctrl + C to stop docker containers and applications"
 
 # Function to stop both applications on exit
 function cleanup {
