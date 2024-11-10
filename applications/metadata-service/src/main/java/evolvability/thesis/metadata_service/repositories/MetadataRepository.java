@@ -11,11 +11,11 @@ import java.util.Optional;
 @Repository
 public interface MetadataRepository extends MongoRepository<MetadataEntity, String> {
     @Query("{ '$and': [ " +
-            "{ 'collectorId': ?1 }, " + // Filter by collectorId
+            "{ 'sourceId': ?1 }, " + // Filter by sourceId
             "{ '$or': [ " +
             "{ 'startDate': null, 'expirationDate': { '$gte': ?0 } }, " + // If startDate is null, valid if expirationDate is in the future
             "{ 'startDate': { '$lt': ?0 }, 'expirationDate': { '$gte': ?0 } }, " + // Valid if current date is between startDate and expirationDate
             "{ 'startDate': { '$lte': ?0 }, 'expirationDate': null } " + // Valid if expirationDate is null and startDate is in the past or current
             "] } ] }")
-    Optional<MetadataEntity> findMostRecentValidByCollectorId(String collectorId, LocalDateTime now);
+    Optional<MetadataEntity> findMostRecentValidBySourceId(String sourceId, LocalDateTime now);
 }

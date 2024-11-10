@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "metadata-service", url = "http://localhost:8082")
 public interface MetadataServiceClient {
-    @GetMapping("/metadata/{collectorId}")
-    Metadata getMetadata(@PathVariable("collectorId") String collectorId);
+    @GetMapping("/metadata/{sourceId}")
+    Metadata getMetadata(@PathVariable("sourceId") String sourceId);
 }

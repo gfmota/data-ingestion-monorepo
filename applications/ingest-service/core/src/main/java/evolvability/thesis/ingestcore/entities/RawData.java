@@ -20,13 +20,10 @@ public class RawData {
     private String id;
 
     @Indexed
-    private String collectorId;
+    private String sourceId;
 
     @Indexed
     private LocalDateTime collectedAt;
-
-    @Indexed
-    private String dataId;
 
     private Boolean processed;
 

@@ -31,14 +31,12 @@ public class RawDataService {
         }
     }
 
-    public RawData insert(final String collectorId,
+    public RawData insert(final String sourceId,
                           final LocalDateTime collectedAt,
-                          final String dataId,
                           final Object data) throws DatabaseOperationFailedException {
         final RawData rawData = RawData.builder()
-                .collectorId(collectorId)
+                .sourceId(sourceId)
                 .collectedAt(collectedAt)
-                .dataId(dataId)
                 .data(data)
                 .processed(false)
                 .build();
@@ -52,18 +50,18 @@ public class RawDataService {
         }
     }
 
-    public List<RawData> findNonProcessedRawDataInTimerangeByCollectorId(final String collectorId,
+    public List<RawData> findNonProcessedRawDataInTimerangeBysourceId(final String sourceId,
                                                                          final LocalDateTime from,
                                                                          final LocalDateTime to) {
-        log.info("Finding non processed raw data for collectorId: {} between {} and {}", collectorId, from, to);
+        log.info("Finding non processed raw data for sourceId: {} between {} and {}", sourceId, from, to);
         final LocalDateTime startDate = from == null ? MIN_DATE : from;
         final LocalDateTime expirationDate = to == null ? MAX_DATE  : to;
         try {
-            return rawDataRepository.findByCollectorIdAndCollectedAtBetweenAndProcessedFalse(
-                    collectorId, startDate , expirationDate);
+            return rawDataRepository.findBysourceIdAndCollectedAtBetweenAndProcessedFalse(
+                    sourceId, startDate , expirationDate);
         } catch (Exception e) {
-            log.error("Error finding non processed raw data for collectorId: {} between {} and {}, returning empty list",
-                    collectorId, startDate, expirationDate, e);
+            log.error("Error finding non processed raw data for sourceId: {} between {} and {}, returning empty list",
+                    sourceId, startDate, expirationDate, e);
             return List.of();
         }
     }

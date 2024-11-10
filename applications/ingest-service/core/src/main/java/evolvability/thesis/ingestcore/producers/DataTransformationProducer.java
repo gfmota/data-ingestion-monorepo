@@ -29,10 +29,10 @@ public class DataTransformationProducer {
         Metadata metadata = messageMetadata;
         if (messageMetadata == null) {
             try {
-                metadata = metadataServiceClient.getMetadata(rawData.getCollectorId());
+                metadata = metadataServiceClient.getMetadata(rawData.getSourceId());
             } catch (Exception e) {
-                log.error("Error getting metadata for collectorId: {}", rawData.getCollectorId(), e);
-                log.info("No metadata for collectorId {}, dropping publication", rawData.getCollectorId(), e);
+                log.error("Error getting metadata for sourceId: {}", rawData.getSourceId(), e);
+                log.info("No metadata for sourceId {}, dropping publication", rawData.getSourceId(), e);
                 return;
             }
         }

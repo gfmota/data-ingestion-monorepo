@@ -22,7 +22,7 @@ public class MetadataService {
 
     public String createMetadata(final MetadataDTO metadata) {
         final var metadataObject = MetadataEntity.builder()
-                .collectorId(metadata.collectorId())
+                .sourceId(metadata.sourceId())
                 .metadata(metadata.metadata())
                 .startDate(metadata.startDate())
                 .expirationDate(metadata.expirationDate())
@@ -34,8 +34,8 @@ public class MetadataService {
         return savedObject.getId();
     }
 
-    public Metadata getMetadata(final String collectorId) throws MetadataNotFoundException {
-        return metadataRepository.findMostRecentValidByCollectorId(collectorId, LocalDateTime.now())
+    public Metadata getMetadata(final String sourceId) throws MetadataNotFoundException {
+        return metadataRepository.findMostRecentValidBySourceId(sourceId, LocalDateTime.now())
                 .map(metadataEntity -> {
                     log.info("Most recent metadata found: {}", metadataEntity);
                     return metadataEntity.getMetadata();

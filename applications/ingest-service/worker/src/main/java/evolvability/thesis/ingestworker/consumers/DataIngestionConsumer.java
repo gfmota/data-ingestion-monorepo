@@ -27,7 +27,6 @@ public class DataIngestionConsumer {
         final RawData rawData = rawDataService.insert(
                 message.header().source(),
                 message.header().collectedAt(),
-                message.header().dataId(),
                 message.data());
         log.info("Raw data {} inserted", rawData.getId());
 

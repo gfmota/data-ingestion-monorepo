@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.*;
 public class MetadataController {
     private final MetadataService metadataService;
 
-    @GetMapping("/{collectorId}")
+    @GetMapping("/{sourceId}")
     private ResponseEntity<Metadata> getMetadata(
-            @PathVariable("collectorId") final String collectorId) {
-        log.info("Getting metadata for collectorId: {}", collectorId);
+            @PathVariable("sourceId") final String sourceId) {
+        log.info("Getting metadata for sourceId: {}", sourceId);
         try {
-            return ResponseEntity.ok(metadataService.getMetadata(collectorId));
+            return ResponseEntity.ok(metadataService.getMetadata(sourceId));
         } catch (MetadataNotFoundException e) {
-            log.error("Metadata for collector id {} not found", collectorId, e);
+            log.error("Metadata for source id {} not found", sourceId, e);
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
-            log.error("Error getting metadata for collectorId: {}", collectorId, e);
+            log.error("Error getting metadata for sourceId: {}", sourceId, e);
             return ResponseEntity.internalServerError().build();
         }
     }

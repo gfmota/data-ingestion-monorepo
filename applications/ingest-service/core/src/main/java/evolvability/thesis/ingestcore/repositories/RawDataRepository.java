@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface RawDataRepository extends MongoRepository<RawData, String>{
-    List<RawData> findByCollectorIdAndCollectedAtBetweenAndProcessedFalse(String collectorId, LocalDateTime startDate, LocalDateTime endDate);
+    List<RawData> findBysourceIdAndCollectedAtBetweenAndProcessedFalse(String sourceId, LocalDateTime startDate, LocalDateTime endDate);
 }

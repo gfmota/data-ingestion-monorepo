@@ -10,15 +10,11 @@ import java.util.Map;
 
 @Component
 public class DataEnricher {
-
-    @Value("${data.id}")
-    private String dataId;
-
-    @Value("${collector.id}")
-    private String collectorId;
+    @Value("${source.id}")
+    private String sourceId;
 
     public DataIngestionMessage enrichData(Object data) {
-        final var header = new Header(LocalDateTime.now(), collectorId, dataId);
+        final var header = new Header(LocalDateTime.now(), sourceId);
         return new DataIngestionMessage(header, null, data);
     }
 }

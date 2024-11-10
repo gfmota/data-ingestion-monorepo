@@ -18,15 +18,14 @@ public class IngestDataPublisher {
 
     private final RabbitTemplate rabbitTemplate;
 
-    public void publish(final String collectorId,
-                        final String dataId,
+    public void publish(final String sourceId,
                         final LocalDateTime collectedAt,
                         final Object data,
                         final Metadata metadata) {
-        log.info("Publishing data for ingestion: collectorId={}, dataId={}, collectedAt={}, data={}, metadata={}",
-                collectorId, dataId, collectedAt, data, metadata);
+        log.info("Publishing data for ingestion: sourceId={}, collectedAt={}, data={}, metadata={}",
+                sourceId, collectedAt, data, metadata);
 
-        final Header messageHeader = new Header(collectedAt, collectorId, dataId);
+        final Header messageHeader = new Header(collectedAt, sourceId);
         final DataIngestionMessage message = new DataIngestionMessage(messageHeader, metadata, data);
 
         log.info("Publishing message: {}", message);

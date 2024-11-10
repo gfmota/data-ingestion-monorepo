@@ -19,18 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class IngestController {
     private final IngestDataPublisher ingestDataPublisher;
 
-    @PostMapping("/{collectorId}/{dataId}")
+    @PostMapping("/{sourceId}")
     private ResponseEntity<Void> ingestData(
-            @PathVariable("collectorId") final String collectorId,
-            @PathVariable("dataId") final String dataId,
+            @PathVariable("sourceId") final String sourceId,
             @Valid @RequestBody final IngestDataRequestBodyDTO requestBody) {
         log.info("Received data to be ingested: {}", requestBody);
         try {
-            ingestDataPublisher.publish(collectorId, dataId, requestBody.getCollectedAt(),
+            ingestDataPublisher.publish(sourceId, requestBody.getCollectedAt(),
                     requestBody.getData(), requestBody.getMetadata());
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            log.error("Failed to ingest data: {} {}", collectorId, dataId, e);
+            log.error("Failed to ingest data: {}", sourceId, e);
             return ResponseEntity.internalServerError().build();
         }
     }

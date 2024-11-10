@@ -21,7 +21,7 @@ public class MetadataEntity {
     private String id;
 
     @Indexed
-    private String collectorId;
+    private String sourceId;
 
     @Indexed
     private LocalDateTime receivedAt;

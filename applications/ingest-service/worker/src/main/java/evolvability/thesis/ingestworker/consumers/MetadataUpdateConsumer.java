@@ -26,10 +26,10 @@ public class MetadataUpdateConsumer {
     private void consume(final MetadataDTO message) throws DatabaseOperationFailedException {
         log.info("Received update for metadata: {}", message);
 
-        final List<RawData> collectorsRawData = rawDataService.findNonProcessedRawDataInTimerangeByCollectorId(
-                message.collectorId(), message.startDate() , message.expirationDate());
-        log.info("Found {} non processed raw data entries for collectorId: {} between {} and {}",
-                collectorsRawData.size(), message.collectorId(), message.startDate(), message.expirationDate());
+        final List<RawData> collectorsRawData = rawDataService.findNonProcessedRawDataInTimerangeBysourceId(
+                message.sourceId(), message.startDate() , message.expirationDate());
+        log.info("Found {} non processed raw data entries for sourceId: {} between {} and {}",
+                collectorsRawData.size(), message.sourceId(), message.startDate(), message.expirationDate());
 
         for (RawData rawData : collectorsRawData) {
             dataTransformationProducer.publish(rawData, message.metadata());
