@@ -6,9 +6,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public record MetadataDTO(
-        @NotNull String collectorId,
+        @NotNull(message = "collectorId cannot be null") String collectorId,
         LocalDateTime startDate,
         LocalDateTime expirationDate,
-        @NotNull Metadata metadata
+        @NotNull(message = "metadata cannot be null") Metadata metadata
 ) implements Serializable {
 }
