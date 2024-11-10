@@ -5,18 +5,21 @@ docker-compose -f $COMPOSE_FILE up -d --build
 
 mkdir log
 > log/metadata-service.log
-> log/ingest-service.log
+> log/ingest-worker.log
+> log/ingest-api.log
 > log/austrian-geosphere-data-collector.log
 > log/orchestrator.log
 
 ./gradlew :applications:metadata-service:bootRun >> log/metadata-service.log &
 PID1=$!
-./gradlew :applications:ingest-service:bootRun >> log/ingest-service.log &
+./gradlew :applications:ingest-service:worker:bootRun >> log/ingest-worker.log &
 PID2=$!
-./gradlew :applications:austrian-geosphere-data-collector:bootRun >> log/austrian-geosphere-data-collector.log &
+./gradlew :applications:ingest-service:api:bootRun >> log/ingest-api.log &
 PID3=$!
-./gradlew :applications:orchestrator:worker:bootRun >> log/orchestrator.log &
+./gradlew :applications:austrian-geosphere-data-collector:bootRun >> log/austrian-geosphere-data-collector.log &
 PID4=$!
+./gradlew :applications:orchestrator:worker:bootRun >> log/orchestrator.log &
+PID5=$!
 
 echo "Applications running"
 echo "Use Ctrl + C to stop docker containers and applications"
@@ -28,6 +31,7 @@ function cleanup {
   kill $PID2
   kill $PID3
   kill $PID4
+  kill $PID5
   docker-compose -f $COMPOSE_FILE down
 }
 
@@ -39,3 +43,4 @@ wait $PID1
 wait $PID2
 wait $PID3
 wait $PID4
+wait $PID5

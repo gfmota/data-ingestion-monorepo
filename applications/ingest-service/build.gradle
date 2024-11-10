@@ -27,15 +27,12 @@ allprojects {
 	dependencies {
 		implementation project(':libraries:common-dtos')
 
-		implementation 'org.springframework.boot:spring-boot-starter-amqp'
 		implementation 'org.springframework.boot:spring-boot-starter'
-		implementation 'com.fasterxml.jackson.core:jackson-core'
-		implementation 'com.fasterxml.jackson.core:jackson-annotations'
-		implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+		implementation 'org.springframework.boot:spring-boot-starter-amqp'
 		compileOnly 'org.projectlombok:lombok'
 		annotationProcessor 'org.projectlombok:lombok'
-		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testImplementation 'org.springframework.amqp:spring-rabbit-test'
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
 		testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	}
 
