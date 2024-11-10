@@ -1,0 +1,11 @@
+bootJar {
+	enabled = true
+}
+
+jar {
+	enabled = false
+}
+
+dependencies {
+	implementation project(':applications:ingest-service:core')
+}

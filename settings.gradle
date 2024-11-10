@@ -11,7 +11,7 @@ pluginManagement {
 rootProject.name = 'data-ingestion'
 
 include 'applications:austrian-geosphere-data-collector'
-include 'applications:ingest-service'
+include('applications:ingest-service:core','applications:ingest-service:worker')
 include 'applications:metadata-service'
 include('applications:orchestrator:core','applications:orchestrator:worker')
 include 'libraries:common-dtos'

@@ -1,1 +1,3 @@
 rootProject.name = 'ingest_service'
+
+include 'core', 'worker'

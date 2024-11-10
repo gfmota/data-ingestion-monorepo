@@ -1,0 +1,13 @@
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}
+
+dependencies {
+	implementation project(':libraries:clients')
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+}
