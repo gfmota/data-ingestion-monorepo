@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Type {
-    ARRAY("array");
+    ARRAY("array"),
+    MAP("map");
 
     @JsonValue
     private final String value;

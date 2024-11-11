@@ -1,5 +1,7 @@
 package evolvability.thesis.orchestrator.dtos;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import evolvability.thesis.orchestrator.dtos.result.BranchDTO;
 import evolvability.thesis.orchestrator.dtos.result.DataTypeDTO;
 import evolvability.thesis.orchestrator.dtos.result.StationDTO;
@@ -24,5 +26,13 @@ public class ResultDTO {
         this.dataTypes = new ArrayList<>();
         this.stations = new ArrayList<>();
         this.measurements = new BranchDTO();
+    }
+
+    public String getJson() {
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException ignored) {
+            return "Invalid JSON";
+        }
     }
 }
