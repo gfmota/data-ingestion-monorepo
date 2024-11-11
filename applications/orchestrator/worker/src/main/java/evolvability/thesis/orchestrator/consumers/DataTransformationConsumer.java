@@ -1,6 +1,6 @@
 package evolvability.thesis.orchestrator.consumers;
 
-import evolvability.thesis.orchestrator.dtos.DataTransformationMessage;
+import evolvability.thesis.common.datatransformationqueue.DataTransformationMessage;
 import evolvability.thesis.orchestrator.process.ProcessService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -1,8 +1,10 @@
 package evolvability.thesis.ingestcore.producers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import evolvability.thesis.clients.metadataservice.MetadataServiceClient;
+import evolvability.thesis.common.datatransformationqueue.DataTransformationMessage;
 import evolvability.thesis.common.metadata.Metadata;
-import evolvability.thesis.ingestcore.entities.DataTransformationMessage;
 import evolvability.thesis.ingestcore.entities.RawData;
 import evolvability.thesis.ingestcore.exceptions.DatabaseOperationFailedException;
 import evolvability.thesis.ingestcore.services.RawDataService;
@@ -23,6 +25,8 @@ public class DataTransformationProducer {
 
     private final RawDataService rawDataService;
 
+    private final ObjectMapper objectMapper;
+
     public void publish(final RawData rawData, final Metadata messageMetadata) throws DatabaseOperationFailedException {
         log.info("Publishing raw data: {}", rawData);
 
@@ -37,7 +41,8 @@ public class DataTransformationProducer {
             }
         }
 
-        final DataTransformationMessage message = new DataTransformationMessage(rawData.getData(), metadata);
+        final JsonNode data = objectMapper.valueToTree(rawData.getData());
+        final DataTransformationMessage message = new DataTransformationMessage(data, metadata);
 
         log.info("Publishing message: {}", message);
         rabbitTemplate.convertAndSend(DATA_PUBLICATION_QUEUE, message);
