@@ -4,19 +4,29 @@ This is a Java Spring Boot application that handles raw data in the data ingesti
 
 ## What is "raw data"?
 
-Raw data is the data in the format that it was collected from the provider, before being parsed.
+It is the data as it was collected, before any transformation to match the OpenDataHub's pattern
 
-## What does the Ingestion Service do?
+## Architecture
 
-### Ingest raw data
-Consumes data from a RabbitMQ Message Queue and stores it in a MongoDB database.
+![Component architecture](collector-consumer-COMPONENT%20INGEST.drawio.png)
 
-### Sends data to be parsed
-Once the data have a metadata configuration, it sends the data to a RabbitMQ Message Queue 
-with its metadata configuration.
+### API
 
-This can happen when the data in ingested, the ingest service requests for the metadata 
-at the Metadata Service and sends it if there a valid metadata configuration.
+HTTP API to receive raw data from active data sources.
 
-Or when there is a metadata update, the Ingestion Service consumes the metadata update
-message queue and queries for the raw data affected by this update and send them to be processed.
+This data is sent to the ingestion queue to be processed.
+
+### Worker
+
+#### Data Ingestion Consumer
+
+Consumes raw data from a queue, persists it and sends it to be transformed if it has metadata configuration
+(with it or from Metadata Service).
+
+#### Metadata Update Consumer
+
+Consumes metadata update messages and queries for raw data affected by this update to send them to be transformed.
+
+## Infrastructure
+
+It uses RabbitMQ to asynchronous communication via queues and MongoDB for persistence.
