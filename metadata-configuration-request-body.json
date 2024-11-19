@@ -51,14 +51,6 @@
         "rtype": "mean"
       },
       {
-        "datatypeName": "wind_direction",
-        "method": "extract",
-        "unitProperty": "properties.parameters.DD.unit",
-        "valueProperty": "properties.parameters.DD.data",
-        "targetUnit": "°",
-        "rtype": "mean"
-      },
-      {
         "datatypeName": "wind_temperature",
         "method": "extract",
         "unitProperty": "properties.parameters.TL.unit",
