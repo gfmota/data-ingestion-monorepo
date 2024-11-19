@@ -35,7 +35,8 @@ public class MetadataService {
     }
 
     public Metadata getMetadata(final String sourceId) throws MetadataNotFoundException {
-        return metadataRepository.findMostRecentValidBySourceId(sourceId, LocalDateTime.now())
+        return metadataRepository.findFirstByValidDateAndSourceId(sourceId, LocalDateTime.now())
+                .stream().findFirst()
                 .map(metadataEntity -> {
                     log.info("Most recent metadata found: {}", metadataEntity);
                     return metadataEntity.getMetadata();
