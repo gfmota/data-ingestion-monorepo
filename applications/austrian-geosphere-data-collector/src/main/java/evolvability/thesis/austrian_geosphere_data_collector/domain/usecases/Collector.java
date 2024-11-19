@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 @Slf4j
 public class Collector {
-    private static final String EVERY_TEN_MINUTES_CRON = "0 * * * * *";
+    private static final String EVERY_TEN_MINUTES_CRON = "0 */10 * * * *";
 
     @Value("${geosphere.stations}")
     private String stations;
