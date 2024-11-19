@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "7c665407-9462-4fe4-ab32-9c49a786898a",
+		"name": "Data Ingestion System",
+		"description": "Makes available clients for Data Ingestion System HTTP APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15226898"
+	},
+	"item": [
+		{
+			"name": "Create metadata",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"sourceId\": \"austrian-geosphere\",\n  \"startDate\": \"2015-08-04T10:11:30\",\n  \"expirationDate\": \"2029-08-04T10:11:30\",\n  \"metadata\": {\n    \"dataId\": \"austrian-123123-data\",\n    \"origin\": \"austrian-geosphere-data-collector\",\n    \"period\": 600,\n    \"timestampProperty\": \"timestamps.0\",\n    \"results\": {\n      \"type\": \"array\",\n      \"property\": \"features\",\n      \"idProperty\": \"properties.station\"\n    },\n    \"stations\": {\n      \"type\": \"array\",\n      \"property\": \"features\",\n      \"identification\": {\n        \"property\": \"properties.station\"\n      },\n      \"location\": {\n        \"property\": \"geometry.coordinates\",\n        \"type\": \"array\",\n        \"longitude\": \"0\",\n        \"latitude\": \"1\"\n      }\n    },\n    \"datatypes\": [\n      {\n        \"datatypeName\": \"air_pressure\",\n        \"method\": \"extract\",\n        \"unitProperty\": \"properties.parameters.P.unit\",\n        \"valueProperty\": \"properties.parameters.P.data\",\n        \"targetUnit\": \"hPa\",\n        \"rtype\": \"mean\"\n      },\n      {\n        \"datatypeName\": \"wind_speed\",\n        \"method\": \"extract\",\n        \"unitProperty\": \"properties.parameters.FF.unit\",\n        \"valueProperty\": \"properties.parameters.FF.data\",\n        \"targetUnit\": \"m/s\",\n        \"rtype\": \"mean\"\n      },\n      {\n        \"datatypeName\": \"wind_direction\",\n        \"method\": \"extract\",\n        \"unitProperty\": \"properties.parameters.DD.unit\",\n        \"valueProperty\": \"properties.parameters.DD.data\",\n        \"targetUnit\": \"°\",\n        \"rtype\": \"mean\"\n      },\n      {\n        \"datatypeName\": \"wind_temperature\",\n        \"method\": \"extract\",\n        \"unitProperty\": \"properties.parameters.TL.unit\",\n        \"valueProperty\": \"properties.parameters.TL.data\",\n        \"targetUnit\": \"°F\",\n        \"rtype\": \"mean\"\n      }\n    ]\n  }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{metadata-service-host}}/metadata",
+					"host": [
+						"{{metadata-service-host}}"
+					],
+					"path": [
+						"metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get metadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{metadata-service-host}}/metadata/austrian-geosphere",
+					"host": [
+						"{{metadata-service-host}}"
+					],
+					"path": [
+						"metadata",
+						"austrian-geosphere"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ingest data",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"collectedAt\": \"2029-08-04T10:11:30\",\n    \"data\": {\n        \"media_type\": \"application/json\",\n        \"type\": \"FeatureCollection\",\n        \"version\": \"v1\",\n        \"timestamps\": [\n            \"2024-11-19T01:30+00:00\"\n        ],\n        \"features\": [\n            {\n                \"type\": \"Feature\",\n                \"geometry\": {\n                    \"type\": \"Point\",\n                    \"coordinates\": [\n                        16.35638888888889,\n                        48.24861111111111\n                    ]\n                },\n                \"properties\": {\n                    \"parameters\": {\n                        \"P\": {\n                            \"name\": \"Luftdruck\",\n                            \"unit\": \"hPa\",\n                            \"data\": [\n                                988.1\n                            ]\n                        },\n                        \"FF\": {\n                            \"name\": \"Windgeschwindigkeit\",\n                            \"unit\": \"m/s\",\n                            \"data\": [\n                                1.2\n                            ]\n                        },\n                        \"DD\": {\n                            \"name\": \"Windrichtung\",\n                            \"unit\": \"°\",\n                            \"data\": [\n                                204.0\n                            ]\n                        },\n                        \"TL\": {\n                            \"name\": \"Lufttemperatur\",\n                            \"unit\": \"°C\",\n                            \"data\": [\n                                5.0\n                            ]\n                        }\n                    },\n                    \"station\": \"11035\"\n                }\n            }\n        ]\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{ingest-service-host}}/ingest/austrian-geosphere",
+					"host": [
+						"{{ingest-service-host}}"
+					],
+					"path": [
+						"ingest",
+						"austrian-geosphere"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "metadata-service-host",
+			"value": "http://localhost:8082",
+			"type": "string"
+		},
+		{
+			"key": "ingest-service-host",
+			"value": "http://localhost:8081",
+			"type": "string"
+		}
+	]
+}

@@ -42,3 +42,9 @@ and start the docker containers necessary. Use the log files on the logs folder 
 
 You can also use `make configure-metadata` to send a http request for the Metadata Service to 
 configure a metadata. The configuration used can be changed on the `./metadata-configuration-request-body.json`
+
+Use `make ingest-data` to send a http request for the Ingest Service to send data to be ingested. 
+The data sent can be changed on the `./raw-data-to-be-ingested.json`
+
+There is also a Postman collection on the `./Data Ingestion System.postman_collection.json`
+that can be used to access HTTP clients available by the system.

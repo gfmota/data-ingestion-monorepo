@@ -1,0 +1,56 @@
+{
+  "collectedAt": "2029-08-04T10:11:30",
+  "data": {
+    "media_type": "application/json",
+    "type": "FeatureCollection",
+    "version": "v1",
+    "timestamps": [
+      "2024-11-19T01:30+00:00"
+    ],
+    "features": [
+      {
+        "type": "Feature",
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            16.35638888888889,
+            48.24861111111111
+          ]
+        },
+        "properties": {
+          "parameters": {
+            "P": {
+              "name": "Luftdruck",
+              "unit": "hPa",
+              "data": [
+                988.1
+              ]
+            },
+            "FF": {
+              "name": "Windgeschwindigkeit",
+              "unit": "m/s",
+              "data": [
+                1.2
+              ]
+            },
+            "DD": {
+              "name": "Windrichtung",
+              "unit": "°",
+              "data": [
+                204.0
+              ]
+            },
+            "TL": {
+              "name": "Lufttemperatur",
+              "unit": "°C",
+              "data": [
+                5.0
+              ]
+            }
+          },
+          "station": "11035"
+        }
+      }
+    ]
+  }
+}
