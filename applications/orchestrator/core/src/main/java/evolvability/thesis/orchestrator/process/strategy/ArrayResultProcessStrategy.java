@@ -46,8 +46,7 @@ public class ArrayResultProcessStrategy implements ProcessStrategy {
     }
 
     @Override
-    public BranchDTO getMeasurements(final JsonNode data, final Metadata metadata) throws JsonPropertyNotFound,
-            ResultTypeNotSupported {
+    public BranchDTO getMeasurements(final JsonNode data, final Metadata metadata) throws JsonPropertyNotFound {
         final Metadata.Results resultsMetadata = metadata.results();
         final ArrayNode results = (ArrayNode) getJsonProperty(data, resultsMetadata.property());
         final BranchDTO measurements = new BranchDTO();
